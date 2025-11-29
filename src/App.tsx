@@ -27,34 +27,34 @@ function App() {
             <RetroBackground onInit={setRenderer} startAnimation={!showIntro} />
 
             <ScrollSmoothManager renderer={renderer}>
-                <div data-section="hero" className="relative">
+                <div id="hero" data-section="hero" className="relative">
                     <FinalHero renderer={renderer} startAnimation={!showIntro} />
                     {/* Spacer for Hero Scroll Effect */}
                     <div style={{ height: '100vh' }}></div>
                 </div>
 
                 {/* Cinematic Chapter 2 Section */}
-                <div data-section="about">
+                <div id="about" data-section="about">
                     <AboutLarge />
                 </div>
 
                 {/* Skills Section */}
-                <div data-section="skills" data-no-exit-anim="true" style={{ marginBottom: '15vh' }}>
+                <div id="skills" data-section="skills" data-no-exit-anim="true" style={{ marginBottom: '15vh' }}>
                     <Skills />
                 </div>
 
                 {/* Projects Section */}
-                <div data-section="projects" data-no-exit-anim="true">
+                <div id="projects" data-section="projects" data-no-exit-anim="true">
                     <Projects />
                 </div>
 
                 {/* Contact Section */}
-                <div data-section="contact" style={{ marginBottom: '5vh' }}>
+                <div id="contact" data-section="contact" style={{ marginBottom: '5vh' }}>
                     <Contact />
                 </div>
 
                 {/* Footer */}
-                <div data-section="footer">
+                <div id="footer" data-section="footer">
                     <Footer />
                 </div>
             </ScrollSmoothManager>

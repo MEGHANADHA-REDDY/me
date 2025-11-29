@@ -73,7 +73,7 @@ const Contact: React.FC = () => {
             {/* Cosmic Grid Background (Optional overlay if needed, otherwise transparent) */}
             <div className="absolute inset-0 pointer-events-none bg-[url('/grid.svg')] opacity-10 bg-center [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]"></div>
 
-            <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
+            <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24" id="contact">
 
                 {/* Left Side: Animated Orb & Status */}
                 <div className="flex flex-col items-center justify-center gap-8 w-full md:w-1/3">

@@ -24,6 +24,8 @@ export class ScrollSmooth {
         this.init();
     }
 
+    private resizeObserver: ResizeObserver | null = null;
+
     public init() {
         if (SMOOTH_CONFIG.prefersReducedMotion || window.innerWidth <= SMOOTH_CONFIG.mobileBreakpoint) {
             console.log('ScrollSmooth disabled (Mobile/Reduced Motion)');
@@ -39,6 +41,23 @@ export class ScrollSmooth {
         window.addEventListener('resize', this.onResize);
         window.addEventListener('wheel', this.onWheel, { passive: false });
 
+        // ResizeObserver for dynamic content height (Fixes infinite scroll bug)
+        this.resizeObserver = new ResizeObserver(() => {
+            this.onResize();
+        });
+        this.resizeObserver.observe(this.content);
+
+        // Intercept Hash Links
+        document.addEventListener('click', this.onLinkClick);
+        window.addEventListener('hashchange', this.onHashChange);
+
+        // Initial hash check
+        if (window.location.hash) {
+            setTimeout(() => {
+                this.scrollToAnchor(window.location.hash);
+            }, 100);
+        }
+
         this.loop();
     }
 
@@ -48,6 +67,23 @@ export class ScrollSmooth {
         }
     };
 
+    private onLinkClick = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        const anchor = target.closest('a');
+        if (anchor) {
+            const href = anchor.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                window.history.pushState(null, '', href);
+                this.scrollToAnchor(href);
+            }
+        }
+    };
+
+    private onHashChange = () => {
+        this.scrollToAnchor(window.location.hash);
+    };
+
     public dispose() {
         this.isEnabled = false;
         document.body.classList.remove('ss-active');
@@ -55,6 +91,13 @@ export class ScrollSmooth {
         window.removeEventListener('resize', this.onResize);
         window.removeEventListener('wheel', this.onWheel);
         window.removeEventListener('scroll', this.onNativeScroll);
+
+        document.removeEventListener('click', this.onLinkClick);
+        window.removeEventListener('hashchange', this.onHashChange);
+
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        }
 
         if (this.rafId) cancelAnimationFrame(this.rafId);
 
@@ -67,8 +110,66 @@ export class ScrollSmooth {
         });
     }
 
+    public scrollTo(y: number) {
+        this.targetY = Math.min(Math.max(y, 0), this.maxScroll);
+        // Removed immediate jump to allow smooth scrolling
+        // this.currentY = this.targetY; 
+    }
+
+    public scrollToAnchor(hash: string) {
+        if (!hash) return;
+
+        const sectionName = hash.replace('#', '');
+
+        // Priority 1: data-section (usually the main section wrappers)
+        let target = document.querySelector(`[data-section="${sectionName}"]`) as HTMLElement;
+
+        // Priority 2: ID (fallback for internal links)
+        if (!target) {
+            target = document.querySelector(hash) as HTMLElement;
+        }
+
+        if (target) {
+            console.log('Scrolling to anchor:', hash);
+            console.log('Target element:', target);
+
+            // Calculate cumulative offset relative to this.content
+            let offset = 0;
+            let el = target;
+
+            // Traverse up to find the offset relative to the scroll content
+            // We stop if we hit this.content or document body
+            while (el && el !== this.content && this.content.contains(el)) {
+                offset += el.offsetTop;
+                el = el.offsetParent as HTMLElement;
+            }
+
+            // If target is a direct child or we successfully traversed
+            if (this.content.contains(target)) {
+                this.targetY = offset;
+            } else {
+                // Fallback for elements outside content (shouldn't happen usually)
+                this.targetY = target.offsetTop;
+            }
+
+            console.log('Calculated Target Y:', this.targetY);
+            console.log('Max scroll:', this.maxScroll);
+
+            // Clamp to maxScroll
+            if (this.targetY > this.maxScroll) {
+                console.warn('Target is beyond maxScroll, clamping.');
+                this.targetY = this.maxScroll;
+            }
+
+            this.isSnapping = true; // Lock it in
+        } else {
+            console.warn('Anchor target not found:', hash);
+        }
+    }
+
     private onResize = () => {
         this.maxScroll = this.content.scrollHeight - window.innerHeight;
+        console.log('ScrollSmooth Resize: Content Height:', this.content.scrollHeight, 'Max Scroll:', this.maxScroll);
         this.targetY = Math.min(Math.max(this.targetY, 0), this.maxScroll);
     };
 
