@@ -32,7 +32,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                     exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
                 >
                     <AnimatedText
-                        text="MEGHANADHA"
+                        text="MEGHANAD"
                         textClassName="text-5xl md:text-7xl font-bold text-white tracking-wider"
                         underlineGradient="from-[#EDE7FF] via-[#FF93D1] to-[#EDE7FF]"
                         underlineHeight="h-1"
