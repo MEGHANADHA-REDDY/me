@@ -1,0 +1,144 @@
+.mpc-wrapper {
+    width: 100%;
+    height: 100vh;
+    /* Full screen on mobile */
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: transparent;
+    color: white;
+    position: relative;
+    pointer-events: auto;
+    /* Ensure interaction */
+}
+
+.mpc-container {
+    position: relative;
+    width: min(400px, 100%);
+    height: 400px;
+    /* Fixed height for the wheel area */
+}
+
+/* List (Wheel) */
+.mpc-list {
+    list-style: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    perspective: 900px;
+    transform-style: preserve-3d;
+    padding: 0;
+    margin: 0;
+}
+
+.mpc-item {
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 2.5rem);
+    /* Adjusted for item height */
+
+    /* Rotation Logic */
+    --rotateX: calc(1deg * var(--rotateDegrees) * (var(--day_idx) - var(--currentDay)));
+    transform: rotateX(var(--rotateX)) translateZ(190px) translateX(-50%) scale(var(--scale, 1));
+
+    /* Styling */
+    width: 70%;
+    height: 5rem;
+    /* Taller for project card */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 500ms ease, background-color 500ms ease, border-color 500ms ease;
+    cursor: pointer;
+}
+
+.mpc-item.active {
+    --scale: 1.1;
+    background: rgba(237, 231, 255, 0.1);
+    border-color: #FF93D1;
+    box-shadow: 0 0 20px rgba(255, 147, 209, 0.3);
+    z-index: 10;
+}
+
+.mpc-card-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.mpc-number {
+    font-family: monospace;
+    color: #FF93D1;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.mpc-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #EDE7FF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Controls */
+.mpc-controls {
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    /* Positioned to the right */
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 20;
+}
+
+.mpc-controls button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    color: #0B0010;
+    border: none;
+    background: #EDE7FF;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(237, 231, 255, 0.3);
+}
+
+.mpc-controls button:hover,
+.mpc-controls button:focus {
+    background: #FF93D1;
+    transform: scale(1.1);
+}
+
+.mpc-controls button:active {
+    transform: scale(0.9);
+}
+
+/* Border/Frame (Optional visual guide) */
+.mpc-border {
+    width: 90%;
+    height: 6rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: -1;
+}

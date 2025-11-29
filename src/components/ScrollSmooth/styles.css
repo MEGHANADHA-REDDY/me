@@ -1,0 +1,84 @@
+/* Scroll Smooth Styles */
+
+body.ss-active {
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.ss-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through to content */
+}
+
+.ss-content {
+    width: 100%;
+    will-change: transform;
+    pointer-events: auto;
+    /* Re-enable pointer events for content */
+}
+
+.ss-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    /* Ensure sections don't overlap weirdly without z-index */
+    z-index: 1;
+}
+
+/* Section Masking (Seam Hiding) */
+.ss-mask-top,
+.ss-mask-bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    z-index: 20;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.ss-mask-top {
+    top: 0;
+    background: linear-gradient(to bottom, #0C0218 0%, transparent 100%);
+}
+
+.ss-mask-bottom {
+    bottom: 0;
+    background: linear-gradient(to top, #0C0218 0%, transparent 100%);
+}
+
+/* Mobile / Reduced Motion Fallback */
+@media (max-width: 768px),
+(prefers-reduced-motion: reduce) {
+    body.ss-active {
+        overflow: auto;
+        height: auto;
+        position: static;
+    }
+
+    .ss-container {
+        position: static;
+        height: auto;
+        overflow: visible;
+    }
+
+    .ss-content {
+        transform: none !important;
+    }
+
+    .ss-mask-top,
+    .ss-mask-bottom {
+        display: none;
+    }
+}

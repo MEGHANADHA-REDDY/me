@@ -1,0 +1,142 @@
+[
+    {
+        "id": "voltworx",
+        "title": "VoltWorx",
+        "subtitle": "Startup Student Connector",
+        "heroImage": "/voltworx.png",
+        "images": [
+            "/voltworx.png"
+        ],
+        "gallery": [
+            "/voltworx.png"
+        ],
+        "tags": [
+            "React",
+            "Node.js",
+            "Startup"
+        ],
+        "category": [
+            "Web",
+            "Platform"
+        ],
+        "description": "VoltWorx is a platform that connects students with real startup projects, giving them hands-on experience while helping early-stage founders get quality work done quickly and affordably. It bridges the gap between learning and real execution by letting students build real-world products, and enabling startups to validate ideas faster with skilled, motivated talent.",
+        "highlights": [
+            "Connects Students & Startups",
+            "Real-world Experience",
+            "Talent Validation"
+        ],
+        "links": {
+            "demo": "https://www.volt-worx.com/",
+            "github": "https://github.com/MEGHANADHA-REDDY/VoltWorx"
+        },
+        "year": "2024",
+        "role": "Full Stack Developer",
+        "live": "https://www.volt-worx.com/",
+        "repo": "https://github.com/MEGHANADHA-REDDY/VoltWorx"
+    },
+    {
+        "id": "smart-student-hub",
+        "title": "Smart Student Hub",
+        "subtitle": "Certificate Verification Platform",
+        "heroImage": "/smartstudenthub.png",
+        "images": [
+            "/smartstudenthub.png"
+        ],
+        "gallery": [
+            "/smartstudenthub.png"
+        ],
+        "tags": [
+            "SIH2025",
+            "Security",
+            "Workflow"
+        ],
+        "category": [
+            "Web",
+            "EdTech"
+        ],
+        "description": "Smart Student Hub is a streamlined platform built to simplify certificate verification and improve placement workflows inside colleges. It allows students to securely upload and manage all their academic certificates, while the system automatically validates documents, reduces manual checking, and prevents verification delays. For placements, it provides companies with quick access to verified student profiles, ensuring faster, more reliable recruitment.",
+        "highlights": [
+            "Automated Verification",
+            "Secure Uploads",
+            "Placement Streamlining"
+        ],
+        "links": {
+            "demo": "#",
+            "github": "https://github.com/MEGHANADHA-REDDY/SIH2025"
+        },
+        "year": "2025",
+        "role": "Lead Developer",
+        "live": "#",
+        "repo": "https://github.com/MEGHANADHA-REDDY/SIH2025"
+    },
+    {
+        "id": "iic-mlritm",
+        "title": "IIC MLRITM",
+        "subtitle": "Innovation Council Portal",
+        "heroImage": "/iicmlritm.png",
+        "images": [
+            "/iicmlritm.png"
+        ],
+        "gallery": [
+            "/iicmlritm.png"
+        ],
+        "tags": [
+            "React",
+            "Education",
+            "Community"
+        ],
+        "category": [
+            "Web",
+            "Institutional"
+        ],
+        "description": "IIC MLRITM Website is a dedicated platform built to showcase the innovation, achievements, and activities of the Institution’s Innovation Council at MLRITM. The site provides an organized space for event updates, innovation programs, faculty/student achievements, and institutional initiatives. With a clean UI and structured navigation, it helps students, faculty, and visitors easily access information.",
+        "highlights": [
+            "Event Updates",
+            "Innovation Showcase",
+            "Structured Navigation"
+        ],
+        "links": {
+            "demo": "https://iic.mlritm.ac.in/",
+            "github": "https://github.com/rochanreddy/iic_new_web"
+        },
+        "year": "2024",
+        "role": "Frontend Developer",
+        "live": "https://iic.mlritm.ac.in/",
+        "repo": "https://github.com/rochanreddy/iic_new_web"
+    },
+    {
+        "id": "quarter-billboard",
+        "title": "The Quarter BillBoard",
+        "subtitle": "Local Business Listing",
+        "heroImage": "/quarterbillboard.png",
+        "images": [
+            "/quarterbillboard.png"
+        ],
+        "gallery": [
+            "/quarterbillboard.png"
+        ],
+        "tags": [
+            "React",
+            "Business",
+            "SEO"
+        ],
+        "category": [
+            "Web",
+            "Commercial"
+        ],
+        "description": "QuarterBillBoard is a modern business listing and promotional platform designed to help local shops, startups, and service providers gain visibility within their community. I built a clean, responsive website that allows businesses to showcase their services, offers, and contact details in an organized and user-friendly way. The platform focuses on simplicity, smooth navigation, and fast performance.",
+        "highlights": [
+            "Business Visibility",
+            "Clean UI",
+            "Fast Performance"
+        ],
+        "links": {
+            "demo": "https://www.thequarterbillboard.com/",
+            "github": "https://github.com/MEGHANADHA-REDDY/billboard"
+        },
+        "year": "2024",
+        "role": "Solo Developer",
+        "live": "https://www.thequarterbillboard.com/",
+        "repo": "https://github.com/MEGHANADHA-REDDY/billboard"
+    }
+]

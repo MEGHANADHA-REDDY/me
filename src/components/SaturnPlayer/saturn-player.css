@@ -1,0 +1,125 @@
+.saturn-container {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    pointer-events: auto;
+}
+
+.saturn-planet {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    padding: 0;
+}
+
+.saturn-planet:hover {
+    transform: scale(1.08);
+}
+
+/* Planet Body */
+.saturn-body {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #EDE7FF, rgba(255, 147, 209, 0.4));
+    box-shadow: 0 0 20px rgba(237, 231, 255, 0.3);
+    z-index: 2;
+    transition: box-shadow 0.5s ease;
+}
+
+/* Ring */
+.saturn-ring {
+    position: absolute;
+    width: 60px;
+    height: 20px;
+    border: 3px solid #FF93D1;
+    border-radius: 50%;
+    z-index: 1;
+    transform: rotateZ(-25deg);
+    box-shadow: 0 0 10px rgba(255, 147, 209, 0.4);
+    transition: border-color 0.5s ease;
+}
+
+/* Glow/Aura */
+.saturn-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 147, 209, 0.2) 0%, transparent 70%);
+    filter: blur(10px);
+    z-index: 0;
+    opacity: 0.5;
+    transition: opacity 0.5s ease;
+}
+
+/* Playing State */
+.saturn-planet.playing .saturn-body {
+    box-shadow: 0 0 30px rgba(255, 147, 209, 0.6);
+}
+
+.saturn-planet.playing .saturn-ring {
+    border-color: #EDE7FF;
+    animation: spinRing 4s linear infinite;
+}
+
+.saturn-planet.playing .saturn-glow {
+    opacity: 0.8;
+    animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+/* Paused State */
+.saturn-planet.paused .saturn-ring {
+    animation: spinRing 12s linear infinite;
+    /* Slow idle spin */
+}
+
+/* Animations */
+@keyframes spinRing {
+    0% {
+        transform: rotateZ(-25deg) rotateX(0deg);
+    }
+
+    100% {
+        transform: rotateZ(-25deg) rotateX(360deg);
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.2);
+        opacity: 0.9;
+    }
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .saturn-container {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .saturn-planet.playing .saturn-ring,
+    .saturn-planet.paused .saturn-ring,
+    .saturn-planet.playing .saturn-glow {
+        animation: none;
+    }
+}

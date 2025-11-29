@@ -1,0 +1,398 @@
+:root {
+    --al-moon-silver: #EDE7FF;
+    --al-neon-orchid: #FF93D1;
+    --al-sub-lav: #D5C8FF;
+    --al-bg-deep: #0B0010;
+    --al-maroon-top: #1b0720;
+    --al-maroon-mid: #56002e;
+    --al-vignette-dk: rgba(6, 3, 10, 0.55);
+    --al-line-soft: rgba(255, 147, 209, 0.12);
+}
+
+/* Wrapper - Full Width Background */
+.about-large-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    color: var(--al-sub-lav);
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    overflow: hidden;
+}
+
+.about-large-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Inner Container - Constrained Content */
+.al-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 8vh 6vw;
+    position: relative;
+    z-index: 2;
+}
+
+/* Dedicated Background Layer */
+.al-bg-solid {
+    position: absolute;
+    inset: 0;
+    background-color: var(--al-bg-deep);
+    z-index: -5;
+    pointer-events: none;
+}
+
+/* Scene Transition Layer (Diagonal Divider) */
+.al-transition-layer {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(174deg, var(--al-maroon-top) 0%, transparent 60%);
+    z-index: -4;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+/* Cinematic Backdrop Elements */
+.al-backdrop-glow {
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    width: 1200px;
+    height: 1200px;
+    background: radial-gradient(circle, rgba(255, 147, 209, 0.25) 0%, transparent 60%);
+    filter: blur(220px);
+    z-index: -3;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
+
+.al-nebula-fog {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(255, 147, 209, 0.15), transparent 50%),
+        radial-gradient(ellipse at 20% 60%, rgba(237, 231, 255, 0.1), transparent 50%);
+    filter: blur(240px);
+    z-index: -3;
+    pointer-events: none;
+}
+
+.al-horizon-glow {
+    position: absolute;
+    top: 35%;
+    left: 15%;
+    width: 70%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 147, 209, 0.4), transparent);
+    filter: blur(4px);
+    z-index: -3;
+    pointer-events: none;
+    opacity: 1;
+}
+
+.al-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: -2;
+    pointer-events: none;
+    mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
+}
+
+.al-particles-container {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.al-particle {
+    position: absolute;
+    background: var(--al-moon-silver);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(1px);
+    animation: alFloatWobble linear infinite;
+}
+
+/* Title Block */
+.al-title-block {
+    margin-bottom: 6vh;
+    position: relative;
+    z-index: 2;
+}
+
+.al-heading {
+    font-size: clamp(48px, 8vw, 110px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--al-moon-silver) 0%, var(--al-neon-orchid) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.al-subtitle {
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--al-sub-lav);
+    max-width: 800px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.about-large-wrapper.visible .al-heading {
+    animation: alFadeUp 0.8s ease-out forwards;
+}
+
+.about-large-wrapper.visible .al-subtitle {
+    animation: alFadeUp 0.8s ease-out 0.2s forwards;
+}
+
+/* Main Content Grid */
+.al-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 6vw;
+    margin-bottom: 8vh;
+    position: relative;
+    z-index: 2;
+}
+
+/* Left Column (Text) */
+.al-text-col {
+    position: relative;
+}
+
+/* Text Glow */
+.al-text-col::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1200px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255, 147, 209, 0.08) 0%, rgba(230, 210, 255, 0.04) 40%, transparent 70%);
+    filter: blur(200px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.al-text-col p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 650px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.about-large-wrapper.visible .al-text-col p {
+    animation: alFadeUp 0.8s ease-out forwards;
+}
+
+.about-large-wrapper.visible .al-text-col p:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.about-large-wrapper.visible .al-text-col p:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.about-large-wrapper.visible .al-text-col p:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+/* Right Column (Orbs) */
+.al-visual-col {
+    position: relative;
+    height: 100%;
+    min-height: 400px;
+}
+
+/* Orb Styles with Sheen */
+.al-orb-large {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--al-moon-silver), #3a2e5a);
+    box-shadow: 0 0 30px rgba(255, 147, 209, 0.2), inset 0 0 20px rgba(255, 147, 209, 0.1);
+    /* Enhanced shadow */
+    opacity: 0;
+    transform: scale(0.8);
+    animation: alOrbFloat 6s ease-in-out infinite;
+    overflow: hidden;
+    /* For sheen */
+    border: 2px solid rgba(255, 147, 209, 0.06);
+    /* Thin neon rim */
+}
+
+.al-orb-large::after {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(25deg);
+    animation: alOrbSheen 7s ease-in-out infinite;
+}
+
+.al-orb-small {
+    position: absolute;
+    top: 160px;
+    right: 160px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--al-neon-orchid), #2d0019);
+    box-shadow: 0 0 20px rgba(255, 147, 209, 0.15), inset 0 0 10px rgba(255, 147, 209, 0.1);
+    opacity: 0;
+    transform: scale(0.8);
+    animation: alOrbFloat 5s ease-in-out infinite reverse;
+    overflow: hidden;
+    border: 2px solid rgba(255, 147, 209, 0.06);
+}
+
+.al-orb-small::after {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: rotate(25deg);
+    animation: alOrbSheen 6s ease-in-out infinite 2s;
+    /* Delayed */
+}
+
+.about-large-wrapper.visible .al-orb-large {
+    animation: alFadeInScale 1s ease-out 0.4s forwards, alOrbFloat 6s ease-in-out 1.4s infinite;
+}
+
+.about-large-wrapper.visible .al-orb-small {
+    animation: alFadeInScale 1s ease-out 0.6s forwards, alOrbFloat 5s ease-in-out 1.6s infinite reverse;
+}
+
+/* Animations */
+@keyframes alFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes alFadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes alOrbFloat {
+
+    0%,
+    100% {
+        transform: translateY(-10px);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+@keyframes alFloatWobble {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translate(10px, -50px);
+    }
+
+    80% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translate(-10px, -100px);
+        opacity: 0;
+    }
+}
+
+@keyframes alOrbSheen {
+
+    0%,
+    40% {
+        top: -150%;
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    60%,
+    100% {
+        top: 150%;
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .al-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .al-visual-col {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .al-heading {
+        font-size: 48px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}

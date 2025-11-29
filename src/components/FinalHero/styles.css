@@ -1,0 +1,309 @@
+:root {
+    --hero-left: 0;
+    --hero-top: 48vh;
+    --hero-max-width: 640px;
+
+    --color-moon-silver: #EDE7FF;
+    --color-neon-orchid: #FF93D1;
+    --color-sub-lav: #D5C8FF;
+    --color-cta-white: #FFFFFF;
+    --color-sec-border: rgba(255, 255, 255, 0.12);
+    --color-vignette: rgba(6, 3, 10, 0.55);
+
+    --vignette-blur: 28px;
+}
+
+/* Container */
+#final-hero-root {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Hero Text Block */
+.hero-text {
+    position: absolute;
+    left: var(--hero-left);
+    top: var(--hero-top);
+    max-width: var(--hero-max-width);
+    transform: translateY(-50%);
+    padding: 40px 40px 40px 20px;
+    /* Reduced left padding */
+    pointer-events: auto;
+    z-index: 2;
+    opacity: 0;
+}
+
+.hero-text.visible {
+    animation: heroSlideIn 0.55s ease-out forwards;
+}
+
+/* Vignette */
+.hero-text::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 780px;
+    height: 420px;
+    background: radial-gradient(closest-side,
+            var(--color-vignette),
+            rgba(6, 3, 10, 0.28) 50%,
+            rgba(6, 3, 10, 0) 70%);
+    filter: blur(var(--vignette-blur));
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+/* Typography */
+.hero-title {
+    font-size: clamp(28px, 4.4vw, 56px);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--color-moon-silver);
+    margin-bottom: 1rem;
+    text-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hero-title .accent {
+    color: var(--color-neon-orchid);
+}
+
+.hero-subtitle {
+    font-size: clamp(14px, 1.4vw, 18px);
+    color: var(--color-sub-lav);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* CTAs */
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    transform: scale(0.96);
+}
+
+.hero-text.visible .hero-actions {
+    animation: popIn 0.5s ease-out 0.3s forwards;
+}
+
+.hero-btn {
+    padding: 0.8rem 1.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+}
+
+.hero-btn-primary {
+    background: var(--color-cta-white);
+    color: #1a0210;
+}
+
+.hero-btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.25);
+}
+
+.hero-btn-secondary {
+    border: 1px solid var(--color-sec-border);
+    color: var(--color-cta-white);
+}
+
+.hero-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+}
+
+/* Right Elements */
+.right-elements {
+    position: absolute;
+    right: 0;
+    /* Removed gap */
+    top: 48vh;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    opacity: 0;
+    padding-right: 20px;
+    /* Minimal padding */
+}
+
+.right-elements.visible {
+    animation: fadeIn 0.8s ease-out 0.9s forwards;
+}
+
+/* Hologram Line */
+.holo-line {
+    position: relative;
+    height: 400px;
+    width: 2px;
+}
+
+.holo-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--color-neon-orchid);
+    border-radius: 50%;
+    opacity: 0;
+    animation: holoRise 3s infinite linear;
+}
+
+@keyframes holoRise {
+    0% {
+        transform: translateY(400px) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Orb */
+.orb {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--color-moon-silver), #3a2e5a);
+    box-shadow: 0 0 20px var(--color-neon-orchid);
+    position: relative;
+    animation: orbBob 4s ease-in-out infinite;
+}
+
+.orb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent);
+    filter: blur(2px);
+}
+
+@keyframes orbBob {
+
+    0%,
+    100% {
+        transform: translateY(-8px);
+    }
+
+    50% {
+        transform: translateY(8px);
+    }
+}
+
+/* Quote */
+.quote {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-orientation: mixed;
+    color: var(--color-sub-lav);
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    height: 200px;
+}
+
+/* Animations */
+@keyframes heroSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-20px, -50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0, -50%);
+    }
+}
+
+@keyframes popIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .right-elements {
+        display: none;
+    }
+
+    .hero-text {
+        left: 0;
+        top: auto;
+        bottom: 10vh;
+        /* Position near bottom */
+        transform: none;
+        width: 100%;
+        max-width: none;
+        text-align: left;
+        padding: 20px 20px 40px 20px;
+        /* Padding for breathing room */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-text::before {
+        width: 100%;
+        height: 150%;
+        /* Extend height for better coverage */
+        top: auto;
+        bottom: -20%;
+        left: 0;
+        transform: none;
+        background: radial-gradient(circle at bottom left,
+                rgba(6, 3, 10, 0.85),
+                rgba(6, 3, 10, 0) 70%);
+    }
+
+    .hero-actions {
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size: 36px;
+        /* Ensure readable size */
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .orb,
+    .holo-particle,
+    .hero-text,
+    .hero-actions,
+    .right-elements {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+    .hero-text {
+        transform: translateY(-50%) !important;
+    }
+}

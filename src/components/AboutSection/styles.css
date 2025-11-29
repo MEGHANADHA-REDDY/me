@@ -1,0 +1,185 @@
+:root {
+    --about-moon-silver: #EDE7FF;
+    --about-neon-orchid: #FF93D1;
+    --about-sub-lav: #D5C8FF;
+    --about-vignette-dark: rgba(6, 3, 10, 0.55);
+    --about-bg-deep: #2d0019;
+}
+
+/* Wrapper */
+.about-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 6vh 6vw;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    /* 60% / 40% roughly */
+    gap: 4vw;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+}
+
+.about-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Divider / Transition */
+.about-divider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to top, var(--about-bg-deep) 0%, transparent 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Typography */
+.about-label {
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    color: var(--about-neon-orchid);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.about-heading {
+    font-size: clamp(28px, 3.8vw, 42px);
+    font-weight: 700;
+    color: var(--about-moon-silver);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.about-paragraph {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--about-sub-lav);
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+/* CTA */
+.about-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+}
+
+.about-cta:hover {
+    opacity: 0.8;
+}
+
+/* Profile Orb */
+.about-orb-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.about-orb {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--about-moon-silver), #3a2e5a);
+    box-shadow: 0 0 18px rgba(255, 147, 209, 0.25);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: aboutOrbBob 4s ease-in-out infinite;
+}
+
+.about-orb:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 25px rgba(255, 147, 209, 0.4);
+}
+
+.about-orb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent);
+    filter: blur(2px);
+    opacity: 0.6;
+    animation: aboutOrbSheen 6.5s infinite linear;
+}
+
+@keyframes aboutOrbBob {
+
+    0%,
+    100% {
+        transform: translateY(-8px);
+    }
+
+    50% {
+        transform: translateY(8px);
+    }
+}
+
+@keyframes aboutOrbSheen {
+
+    0%,
+    80% {
+        transform: translateX(-100%) rotate(-45deg);
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateX(100%) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+    .about-wrapper {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .about-paragraph {
+        margin: 0 auto 2rem auto;
+    }
+
+    .about-orb-container {
+        order: 2;
+        /* Move below text? User said "Orb moves below text" */
+        /* Actually, usually visual first or text first? User said "Orb moves below text". */
+        order: 2;
+    }
+
+    .about-orb {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .about-wrapper,
+    .about-orb,
+    .about-orb::after {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}

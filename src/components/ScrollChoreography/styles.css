@@ -1,0 +1,53 @@
+/* Smooth Scroll Choreography Styles */
+
+/* When engine is active, we hijack native scroll */
+body.sc-active {
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    overscroll-behavior: none;
+}
+
+.sc-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* We will transform this container or its children */
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.sc-content {
+    position: relative;
+    width: 100%;
+    will-change: transform;
+    /* This element moves with "scroll" */
+}
+
+/* Section specific tweaks for choreography */
+/* We don't want to change their layout, just ensure they are targetable */
+[data-section] {
+    position: relative;
+    width: 100%;
+    /* Ensure z-index stacking context */
+    z-index: 1;
+}
+
+/* Hero Pinning Wrapper */
+/* We might wrap the hero content to pin it */
+.sc-hero-pin-wrapper {
+
+    .sc-container {
+        position: static;
+        height: auto;
+        overflow: visible;
+    }
+
+    .sc-content {
+        transform: none !important;
+    }
+}

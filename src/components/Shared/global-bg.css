@@ -1,0 +1,85 @@
+/* Global Background Styles */
+:root {
+    --gb-bg-deep: #0B0010;
+    --gb-moon-silver: #EDE7FF;
+    --gb-neon-orchid: #FF93D1;
+    --gb-maroon-top: #1b0720;
+}
+
+.gb-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -10;
+    /* Behind everything */
+    overflow: hidden;
+    pointer-events: none;
+    background-color: var(--gb-bg-deep);
+}
+
+.gb-nebula-fog {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(255, 147, 209, 0.15), transparent 50%),
+        radial-gradient(ellipse at 20% 60%, rgba(237, 231, 255, 0.1), transparent 50%);
+    filter: blur(240px);
+    opacity: 0.8;
+}
+
+.gb-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(circle at center, black 50%, transparent 95%);
+    opacity: 0.6;
+}
+
+.gb-horizon-glow {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 147, 209, 0.2), transparent);
+    filter: blur(4px);
+    opacity: 0.5;
+}
+
+.gb-particles-container {
+    position: absolute;
+    inset: 0;
+}
+
+.gb-particle {
+    position: absolute;
+    background: var(--gb-moon-silver);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(1px);
+    animation: gbFloat linear infinite;
+}
+
+@keyframes gbFloat {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.3;
+    }
+
+    80% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+}

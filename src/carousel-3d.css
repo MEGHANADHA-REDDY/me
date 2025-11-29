@@ -1,0 +1,77 @@
+/* 3D Connected Carousel Styles */
+:root {
+    --c3d-face-bg: rgba(11, 0, 20, 0.85);
+    --c3d-border: rgba(255, 255, 255, 0.1);
+    --c3d-glow: rgba(255, 147, 209, 0.5);
+}
+
+.c3d-wrapper {
+    transition: transform 0.1s linear;
+    /* Handled by JS, but smooth out jitters */
+}
+
+.c3d-face {
+    backface-visibility: hidden;
+    /* Or visible for transparency? Connected usually needs visible or carefully managed */
+    backface-visibility: visible;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: filter 0.3s;
+    border-radius: 12px;
+    background: var(--c3d-face-bg);
+    border: 1px solid var(--c3d-border);
+    overflow: hidden;
+    /* Clip image corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.c3d-face:hover {
+    border-color: var(--c3d-glow);
+    box-shadow: 0 0 30px var(--c3d-glow);
+}
+
+.c3d-face-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.c3d-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.c3d-face:hover img {
+    opacity: 1;
+}
+
+.c3d-label {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--moon-silver);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    opacity: 0;
+    /* Hidden by default, shown on hover or active? */
+    transition: opacity 0.3s;
+}
+
+.c3d-face:hover .c3d-label {
+    opacity: 1;
+}
+
+/* Overlay gradient */
+.c3d-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    pointer-events: none;
+}

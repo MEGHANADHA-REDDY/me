@@ -1,0 +1,305 @@
+/* Projects Cinematic Showcase */
+:root {
+    --pc-moon-silver: #EDE7FF;
+    --pc-neon-orchid: #FF93D1;
+    --pc-deep-indigo: #0B0014;
+    --pc-glass-bg: rgba(255, 255, 255, 0.03);
+    --pc-glass-border: rgba(255, 255, 255, 0.1);
+    --pc-text-sec: rgba(237, 231, 255, 0.7);
+}
+
+.pc-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Transparent background to reveal GlobalBackground */
+    background: transparent;
+    perspective: 1000px;
+}
+
+/* Header */
+.pc-header {
+    text-align: center;
+    padding-top: 5vh;
+    z-index: 10;
+    margin-bottom: 2rem;
+}
+
+.pc-title {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--pc-moon-silver) 0%, var(--pc-neon-orchid) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.pc-subtitle {
+    font-size: clamp(14px, 1.2vw, 18px);
+    color: var(--pc-text-sec);
+}
+
+/* Filters */
+.pc-filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+}
+
+.pc-filter-chip {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--pc-text-sec);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pc-filter-chip:hover,
+.pc-filter-chip.active {
+    background: rgba(255, 147, 209, 0.15);
+    border-color: var(--pc-neon-orchid);
+    color: var(--pc-moon-silver);
+    box-shadow: 0 0 10px rgba(255, 147, 209, 0.2);
+}
+
+/* Carousel Track */
+.pc-carousel-track {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    /* Center the active item */
+    justify-content: center;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    cursor: grab;
+    touch-action: pan-y;
+    /* Allow vertical scroll, handle horizontal in JS */
+}
+
+.pc-carousel-track:active {
+    cursor: grabbing;
+}
+
+/* Project Plate */
+.pc-plate {
+    position: absolute;
+    width: 60vw;
+    max-width: 600px;
+    aspect-ratio: 16/9;
+    background: rgba(11, 0, 20, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--pc-glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-origin: center center;
+    user-select: none;
+    will-change: transform, opacity, filter;
+}
+
+.pc-plate.active {
+    z-index: 10;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 147, 209, 0.1);
+    border-color: rgba(255, 147, 209, 0.3);
+    cursor: pointer;
+}
+
+.pc-plate:not(.active) {
+    cursor: pointer;
+}
+
+/* Plate Content */
+.pc-plate-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.pc-plate.active:hover .pc-plate-image {
+    transform: scale(1.05);
+}
+
+.pc-plate-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(11, 0, 20, 0.9) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.pc-plate:not(.active) .pc-plate-overlay {
+    opacity: 0.6;
+}
+
+.pc-plate-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--pc-moon-silver);
+    margin-bottom: 0.5rem;
+}
+
+.pc-plate-lede {
+    font-size: 1rem;
+    color: var(--pc-text-sec);
+    margin-bottom: 1rem;
+    max-width: 80%;
+}
+
+.pc-plate-tags {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pc-tag {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: var(--pc-moon-silver);
+}
+
+/* Navigation Buttons */
+.pc-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--pc-moon-silver);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.pc-nav-btn:hover {
+    background: rgba(255, 147, 209, 0.2);
+    border-color: var(--pc-neon-orchid);
+}
+
+.pc-prev {
+    left: 2rem;
+}
+
+.pc-next {
+    right: 2rem;
+}
+
+/* Case Theatre Modal */
+.pc-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    display: flex;
+    align-items: flex-end;
+    /* Slide up from bottom */
+    justify-content: center;
+}
+
+.pc-btn-primary:hover {
+    background: #ffb3df;
+    box-shadow: 0 0 25px rgba(255, 147, 209, 0.6);
+}
+
+.pc-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pc-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.pc-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.pc-highlight-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.pc-highlight-card h4 {
+    color: var(--pc-neon-orchid);
+    margin-bottom: 0.5rem;
+}
+
+.pc-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.pc-gallery-img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s;
+}
+
+.pc-gallery-img:hover {
+    transform: scale(1.02);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .pc-carousel-track {
+        height: auto;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 0;
+        perspective: none;
+        overflow-y: auto;
+    }
+
+    .pc-plate {
+        position: relative;
+        width: 90%;
+        max-width: none;
+        transform: none !important;
+        /* Disable 3D tilt on mobile */
+        opacity: 1 !important;
+        filter: none !important;
+        margin-bottom: 1rem;
+    }
+
+    .pc-nav-btn {
+        display: none;
+    }
+
+    .pc-modal-content {
+        height: 100vh;
+        border-radius: 0;
+    }
+}
